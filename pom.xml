@@ -13,6 +13,11 @@
   <packaging>war</packaging>
   <name>OnlineGroceryDelivery</name>
   <description>OnlineGroceryDelivery</description>
+  <plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>sonar-maven-plugin</artifactId>
+    <version>3.0.2</version>
+</plugin>
   <properties>
 <java.version>1.8</java.version>
 <mockito.version>2.24.0</mockito.version>
@@ -106,6 +111,11 @@
 <!--           <release>11</release> -->
         </configuration>
       </plugin>
+      <plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>sonar-maven-plugin</artifactId>
+    <version>3.9.0</version>
+</plugin>
     
 
 <plugin>
