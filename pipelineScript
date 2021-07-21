@@ -1,10 +1,32 @@
-node{
-   stage('SCM Checkout'){
-  
-   git 'https://github.com/YashSingh0902/Ogdas'
-   }
-   stage('Compile-Package'){
-    def mVnHome=tool name: 'apache-maven-3.8.1', type: 'maven'
-   sh "${mVnHome}/bin/mvn package"
-   }
-   }
+pipeline {
+    agent any
+
+    stages {
+        stage ('Compile Stage') {
+
+            steps {
+                withMaven(maven : 'maven_3_8_1') {
+                    sh 'mvn clean compile'
+                }
+            }
+        }
+
+        stage ('Testing Stage') {
+
+            steps {
+                withMaven(maven : 'maven_3_8_1') {
+                    sh 'mvn test'
+                }
+            }
+        }
+
+
+        stage ('Deployment Stage') {
+            steps {
+                withMaven(maven : 'maven_3_8_1') {
+                    sh 'mvn deploy'
+                }
+            }
+        }
+    }
+}
