@@ -1,32 +1,16 @@
-pipeline {
-    agent any
-
-    stages {
-        stage ('Compile Stage') {
-
-            steps {
-                withMaven(maven : 'apache-maven-3.8.1') {
-                    bat 'mvn clean compile'
-                }
-            }
-        }
-
-        stage ('Testing Stage') {
-
-            steps {
-                withMaven(maven : 'apache-maven-3.8.1') {
-                    bat 'mvn test'
-                }
-            }
-        }
-
-
-        stage ('Deployment Stage') {
-            steps {
-                withMaven(maven : 'apache-maven-3.8.1') {
-                    bat 'mvn deploy'
-                }
-            }
-        }
-    }
-}
+node{
+      def mvnHome = tool name: 'maven 3.8.1', type: 'maven' 
+      stage('Checkout'){
+         git 'https://github.com/LovesCloud/java-tomcat-maven-example'
+       
+      }  
+      stage('Build'){
+         //// Get maven home path and build
+        sh "${mvnHome}/bin/mvn clean package -Dmaven.test.skip=true"
+      }
+     stage ('Test-JUnit'){
+         sh "'${mvnHome}/bin/mvn' test surefire-report:report"
+      }  
+    
+      }
+      }
