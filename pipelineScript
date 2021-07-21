@@ -1,0 +1,10 @@
+node{
+   stage('SCM Checkout'){
+  
+   git 'https://github.com/YashSingh0902/Ogdas'
+   }
+   stage('Compile-Package'){
+    def mVnHome=tool name: 'apache-maven-3.8.1', type: 'maven'
+   sh "${mVnHome}/bin/mvn package"
+   }
+   }
